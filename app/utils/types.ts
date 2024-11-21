@@ -1,15 +1,16 @@
-type Monster = {
+export type Monster = {
   id: number;
   name: string;
   eyes: number;
   color: string;
+  img: string;
 };
-type PostComment = {
+export type PostComment = {
   id: number;
   text: string;
   authorId: number;
 };
-type Post = {
+export type Post = {
   id: number;
   title: string;
   text: string;

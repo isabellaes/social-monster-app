@@ -3,62 +3,72 @@
     {
       "id": 1,
       "name": "Erik",
-      "color": "Grön",
-      "eyes": 2
+      "color": "green",
+      "eyes": 2,
+      "img": "../assets/avatars/monster1.png"
     },
     {
       "id": 2,
       "name": "Anna",
-      "color": "Blå",
-      "eyes": 3
+      "color": "blue",
+      "eyes": 3,
+      "img": "../assets/avatars/monster2.png"
     },
     {
       "id": 3,
       "name": "Johan",
-      "color": "Röd",
-      "eyes": 1
+      "color": "red",
+      "eyes": 1,
+      "img": "../assets/avatars/monster3.png"
     },
     {
       "id": 4,
       "name": "Karin",
-      "color": "Gul",
-      "eyes": 4
+      "color": "yellow",
+      "eyes": 4,
+      "img": "../assets/avatars/monster4.png"
     },
     {
       "id": 5,
       "name": "Lars",
-      "color": "Svart",
-      "eyes": 2
+      "color": "black",
+      "eyes": 2,
+      "img": "../assets/avatars/monster5.png"
     },
     {
       "id": 6,
       "name": "Emma",
-      "color": "Vit",
-      "eyes": 5
+      "color": "white",
+      "eyes": 5,
+      "img": "../assets/avatars/monster6.png"
     },
     {
       "id": 7,
       "name": "Olof",
-      "color": "Orange",
-      "eyes": 3
+      "color": "orange",
+      "eyes": 3,
+      "img": "../assets/avatars/monster1.png"
     },
     {
       "id": 8,
       "name": "Maja",
-      "color": "Lila",
-      "eyes": 6
+      "color": "purple",
+      "eyes": 6,
+      "img": "../assets/avatars/monster2.png"
     },
     {
       "id": 9,
       "name": "Gustav",
-      "color": "Brun",
-      "eyes": 2
+      "color": "brown",
+      "eyes": 2,
+      "img": "../assets/avatars/monster3.png"
     },
     {
       "id": 10,
       "name": "Sara",
-      "color": "Turkos",
-      "eyes": 4
+      "color": "skyblue",
+      "eyes": 4,
+      "img": "../assets/avatars/monster4.png"
     }
   ],
   "posts": [
