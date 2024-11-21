@@ -1,74 +1,50 @@
-import { View, Image } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { Text } from "react-native-paper";
-import { Avatar } from "react-native-paper";
-import mapImages from "../utils/imageMapper";
+import MonsterAvatar from "../components/Monster";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../RootNavigator";
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "../context/store";
+import { Monster } from "../utils/types";
+import { switchCurrentMonster } from "../context/MonsterSlice";
+
+type HomeScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "Home"
+>;
 
 const HomeScreen = () => {
-  function getImageAvatar(avatar: string) {
-    return (
-      <Image style={{ width: 100, height: 100 }} source={mapImages[avatar]} />
-    );
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const monsters = useSelector((state: RootState) => state.monster.monsters);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  function onPressNavigate(monster: Monster) {
+    dispatch(switchCurrentMonster(monster));
+    navigation.navigate("Feed", { monsterId: monster.id.toString() });
   }
+
   return (
-    <View>
-      <Text>Welcome to social monster app 👹</Text>
-      <Text>Choose your Monster to enter the app</Text>
-      <Avatar.Image
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "yellow",
-        }}
-        size={130}
-        source={() => getImageAvatar("../assets/avatars/monster1.png")}
-      />
-      <Avatar.Image
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "brown",
-        }}
-        size={130}
-        source={() => getImageAvatar("../assets/avatars/monster2.png")}
-      />
-      <Avatar.Image
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "purple",
-        }}
-        size={130}
-        source={() => getImageAvatar("../assets/avatars/monster3.png")}
-      />
-      <Avatar.Image
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "green",
-        }}
-        size={130}
-        source={() => getImageAvatar("../assets/avatars/monster4.png")}
-      />
-      <Avatar.Image
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "blue",
-        }}
-        size={130}
-        source={() => getImageAvatar("../assets/avatars/monster5.png")}
-      />
-      <Avatar.Image
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "red",
-        }}
-        size={130}
-        source={() => getImageAvatar("../assets/avatars/monster6.png")}
-      />
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text variant="titleLarge">Welcome to social monster app 👹</Text>
+      <Text variant="titleSmall">Choose your Monster to enter the app</Text>
+      {monsters.map((monster) => (
+        <MonsterAvatar
+          monster={monster}
+          key={monster.id}
+          onPressNavigation={() => onPressNavigate(monster)}
+        />
+      ))}
+    </ScrollView>
   );
 };
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    gap: 5,
+  },
+});
