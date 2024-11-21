@@ -6,7 +6,7 @@ import FeedScreen from "./screens/FeedScreen";
 
 export type RootStackParamList = {
   Home: undefined;
-  Feed: undefined;
+  Feed: { monsterId: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
