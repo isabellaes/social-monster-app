@@ -18,9 +18,9 @@ const PostDetails = (props: Props) => {
   const post = posts.find((p) => p.id === Number(postId));
 
   return (
-    <ScrollView>
+    <View style={{ backgroundColor: "#34C5FA", flex: 1 }}>
       {post ? (
-        <>
+        <View>
           <PostView post={post} />
           <Text variant="titleLarge">Comments: </Text>
           {post.comments.map((c) => (
@@ -28,11 +28,11 @@ const PostDetails = (props: Props) => {
               <PostCommentView postComment={c} />
             </View>
           ))}
-        </>
+        </View>
       ) : (
         <></>
       )}
-    </ScrollView>
+    </View>
   );
 };
 

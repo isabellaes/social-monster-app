@@ -17,7 +17,7 @@ const Feed = () => {
   );
   const posts = useSelector((state: RootState) => state.post.posts);
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={{ backgroundColor: "#ED3EF9" }}>
       <Text>Feed</Text>
       <Text>Currentmonster: {monster?.name}</Text>
       {monster ? <MonsterAvatar monster={monster} /> : <></>}
