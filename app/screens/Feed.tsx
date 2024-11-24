@@ -19,7 +19,6 @@ const Feed = () => {
   return (
     <ScrollView contentContainerStyle={{ backgroundColor: "#9ef53b" }}>
       <View style={{ margin: 5, flexDirection: "row", alignItems: "center" }}>
-        {monster ? <MonsterAvatar monster={monster} /> : <></>}
         <Text variant="titleLarge">Monster {monster?.name}s feed</Text>
       </View>
 

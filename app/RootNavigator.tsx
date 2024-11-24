@@ -9,10 +9,15 @@ import Feed from "./screens/Feed";
 import SwitchUser from "./screens/SwitchUser";
 import { Monster } from "./utils/types";
 import UserDetails from "./screens/UserDetails";
+import MonsterAvatar from "./components/Monster";
+import { View } from "react-native";
+import { Text } from "react-native-paper";
+import { IconButton } from "react-native-paper";
+import MenuDrawer from "./components/MenuDrawer";
 
 export type RootStackParamList = {
   Home: undefined;
-  Feed: { monsterId: string };
+  Feed: undefined;
   Post: { postId: string };
   SwitchUser: undefined;
   User: { monsterId: string };
@@ -21,6 +26,9 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootStackNavigator = () => {
+  const [visible, setVisible] = useState(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
   const [currentMonster, setCurrentMonster] = useState<Monster | null>(null);
   const monster = useSelector(
     (state: RootState) => state.monster.currentMonster
@@ -35,10 +43,26 @@ const RootStackNavigator = () => {
       {currentMonster ? (
         <Stack.Navigator
           initialRouteName="Feed"
-          screenOptions={{
-            headerStyle: { backgroundColor: "#2e003e" },
+          screenOptions={({ route, navigation }) => ({
+            headerStyle: { backgroundColor: "grey" },
             headerTintColor: "white",
-          }}
+            headerRight: () => {
+              return (
+                <View
+                  style={{
+                    margin: 5,
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text variant="titleLarge">{currentMonster.name}</Text>
+                  <MonsterAvatar monster={currentMonster} />
+                  <IconButton icon={"menu"} onPress={showModal} />
+                  <MenuDrawer visible={visible} hideModal={hideModal} />
+                </View>
+              );
+            },
+          })}
         >
           <Stack.Screen name="Feed" component={Feed} />
           <Stack.Screen name="Post" component={PostDetails} />
