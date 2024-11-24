@@ -1,5 +1,5 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Pressable, ScrollView } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { RootStackParamList } from "../RootNavigator";
 import { useSelector } from "react-redux";
@@ -17,25 +17,19 @@ const Feed = () => {
   );
   const posts = useSelector((state: RootState) => state.post.posts);
   return (
-    <ScrollView contentContainerStyle={{ backgroundColor: "#ED3EF9" }}>
-      <Text>Feed</Text>
-      <Text>Currentmonster: {monster?.name}</Text>
-      {monster ? <MonsterAvatar monster={monster} /> : <></>}
+    <ScrollView contentContainerStyle={{ backgroundColor: "#9ef53b" }}>
+      <View style={{ margin: 5, flexDirection: "row", alignItems: "center" }}>
+        {monster ? <MonsterAvatar monster={monster} /> : <></>}
+        <Text variant="titleLarge">Monster {monster?.name}s feed</Text>
+      </View>
 
-      <Button onPress={() => navigation.navigate("SwitchUser")}>
-        Switch User
-      </Button>
-      <Button onPress={() => navigation.navigate("User", { monsterId: "1" })}>
-        User Details
-      </Button>
-
-      <Text>Posts</Text>
       {posts.map((p) => (
         <Pressable
           onPress={() =>
             navigation.navigate("Post", { postId: p.id.toString() })
           }
           key={p.id}
+          style={{ backgroundColor: "white", margin: 5 }}
         >
           <PostView post={p} />
           <Text>Comments: {p.comments.length}</Text>
