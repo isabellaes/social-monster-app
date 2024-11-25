@@ -17,6 +17,9 @@ type Props = {
 const MonsterDetails = (props: Props) => {
   const { monsterId } = props.route.params;
   const monsters = useSelector((state: RootState) => state.monster.monsters);
+  const posts = useSelector((state: RootState) =>
+    state.post.posts.filter((p) => p.authorId === Number(monsterId))
+  );
   const monster = monsters.find((m) => m.id === Number(monsterId));
 
   return (
@@ -27,6 +30,7 @@ const MonsterDetails = (props: Props) => {
           <Text>Name: {monster.name}</Text>
           <Text>Eyes: {monster.eyes}</Text>
           <Text>Color: {monster.color}</Text>
+          <Text>Posts: {posts.length}</Text>
         </View>
       ) : (
         <></>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Drawer, Portal, Modal } from "react-native-paper";
+import { Drawer } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
