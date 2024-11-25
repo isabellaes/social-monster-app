@@ -8,8 +8,7 @@ import { RouteProp } from "@react-navigation/native";
 import PostCommentView from "../components/Comment";
 import { TextInput } from "react-native-paper";
 import { useState } from "react";
-import { addComment } from "../context/postSlice";
-import { useNavigation } from "@react-navigation/native";
+import { addComment, addLike } from "../context/postSlice";
 
 type PostDetailsNavigationProp = RouteProp<RootStackParamList, "Post">;
 type Props = {
@@ -26,6 +25,9 @@ const PostDetails = (props: Props) => {
   const post = posts.find((p) => p.id === Number(postId));
   const [text, setText] = useState("");
 
+  function addLikeToPost() {
+    dispatch(addLike(post?.id || 0));
+  }
   function addNewComment() {
     dispatch(
       addComment({
@@ -54,6 +56,7 @@ const PostDetails = (props: Props) => {
       ) : (
         <></>
       )}
+      <Button onPress={() => addLikeToPost()}>Like</Button>
       <Text>Add comment +</Text>
       <TextInput
         label="Text"

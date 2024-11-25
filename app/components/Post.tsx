@@ -1,10 +1,8 @@
-import { View, Image, Pressable, StyleSheet } from "react-native";
+import { View, Pressable, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
-import { Avatar } from "react-native-paper";
-import mapImages from "../utils/imageMapper";
-import { Monster, Post, PostComment } from "../utils/types";
-import { RootState, AppDispatch } from "../context/store";
-import { useDispatch, useSelector } from "react-redux";
+import { Post } from "../utils/types";
+import { RootState } from "../context/store";
+import { useSelector } from "react-redux";
 import MonsterAvatar from "../components/Monster";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";

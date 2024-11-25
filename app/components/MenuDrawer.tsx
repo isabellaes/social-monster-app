@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Drawer, Portal, Modal } from "react-native-paper";
-import { View, StyleSheet } from "react-native";
-import { useState } from "react";
+import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../RootNavigator";

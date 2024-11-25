@@ -33,6 +33,7 @@ const Feed = () => {
         text: text,
         authorId: monster?.id || 0,
         comments: [],
+        likes: 0,
       })
     );
   }

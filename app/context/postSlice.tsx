@@ -28,9 +28,16 @@ const postSlice = createSlice({
         state.posts[index].comments.push(action.payload.comment);
       }
     },
+    addLike: (state, action: PayloadAction<number>) => {
+      const post = state.posts.find((p) => p.id === action.payload);
+      if (post) {
+        const index = state.posts.indexOf(post);
+        state.posts[index].likes += 1;
+      }
+    },
   },
 });
 
-export const { addPost, addComment } = postSlice.actions;
+export const { addPost, addComment, addLike } = postSlice.actions;
 
 export default postSlice.reducer;

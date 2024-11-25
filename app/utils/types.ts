@@ -16,5 +16,5 @@ export type Post = {
   text: string;
   authorId: number;
   comments: PostComment[];
-  likes?: number;
+  likes: number;
 };
