@@ -29,6 +29,10 @@ const MenuDrawer = (props: MenuDrawerProps) => {
             label="Feed"
             onPress={() => navigation.navigate("Feed")}
           />
+          <Drawer.Item
+            label="Monsters"
+            onPress={() => navigation.navigate("Monsters")}
+          />
         </Drawer.Section>
       </Modal>
     </Portal>

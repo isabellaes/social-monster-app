@@ -22,7 +22,7 @@ const SwitchUser = () => {
 
   function onPressNavigate(monster: Monster) {
     dispatch(switchCurrentMonster(monster));
-    navigation.navigate("Feed", { monsterId: monster.id.toString() });
+    navigation.navigate("Feed");
   }
 
   return (

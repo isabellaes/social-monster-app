@@ -14,6 +14,7 @@ import { View } from "react-native";
 import { Text } from "react-native-paper";
 import { IconButton } from "react-native-paper";
 import MenuDrawer from "./components/MenuDrawer";
+import Monsters from "./screens/Monsters";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -21,6 +22,7 @@ export type RootStackParamList = {
   Post: { postId: string };
   SwitchUser: undefined;
   User: { monsterId: string };
+  Monsters: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -46,17 +48,27 @@ const RootStackNavigator = () => {
           screenOptions={({ route, navigation }) => ({
             headerStyle: { backgroundColor: "grey" },
             headerTintColor: "white",
-            headerRight: () => {
+            header: () => {
               return (
                 <View
                   style={{
+                    padding: 5,
                     margin: 5,
                     flexDirection: "row",
                     alignItems: "center",
+                    justifyContent: "space-between",
                   }}
                 >
-                  <Text variant="titleLarge">{currentMonster.name}</Text>
-                  <MonsterAvatar monster={currentMonster} />
+                  <View
+                    style={{
+                      margin: 5,
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <MonsterAvatar monster={currentMonster} />
+                    <Text variant="titleLarge">{currentMonster.name}</Text>
+                  </View>
                   <IconButton icon={"menu"} onPress={showModal} />
                   <MenuDrawer visible={visible} hideModal={hideModal} />
                 </View>
@@ -68,6 +80,7 @@ const RootStackNavigator = () => {
           <Stack.Screen name="Post" component={PostDetails} />
           <Stack.Screen name="SwitchUser" component={SwitchUser} />
           <Stack.Screen name="User" component={UserDetails} />
+          <Stack.Screen name="Monsters" component={Monsters} />
         </Stack.Navigator>
       ) : (
         <Stack.Navigator
