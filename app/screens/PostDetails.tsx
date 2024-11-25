@@ -9,6 +9,7 @@ import PostCommentView from "../components/Comment";
 import { TextInput } from "react-native-paper";
 import { useState } from "react";
 import { addComment } from "../context/postSlice";
+import { useNavigation } from "@react-navigation/native";
 
 type PostDetailsNavigationProp = RouteProp<RootStackParamList, "Post">;
 type Props = {
