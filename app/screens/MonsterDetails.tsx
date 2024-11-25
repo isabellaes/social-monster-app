@@ -6,12 +6,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../context/store";
 import mapImages from "../utils/imageMapper";
 
-type UserNavigationProp = RouteProp<RootStackParamList, "User">;
+type MonsterDetailsNavigationProp = RouteProp<
+  RootStackParamList,
+  "MonsterDetails"
+>;
 type Props = {
-  route: UserNavigationProp;
+  route: MonsterDetailsNavigationProp;
 };
 
-const UserDetails = (props: Props) => {
+const MonsterDetails = (props: Props) => {
   const { monsterId } = props.route.params;
   const monsters = useSelector((state: RootState) => state.monster.monsters);
   const monster = monsters.find((m) => m.id === Number(monsterId));
@@ -32,7 +35,7 @@ const UserDetails = (props: Props) => {
   );
 };
 
-export default UserDetails;
+export default MonsterDetails;
 
 const styles = StyleSheet.create({
   container: {

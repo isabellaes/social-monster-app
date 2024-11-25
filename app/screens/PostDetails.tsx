@@ -42,28 +42,33 @@ const PostDetails = (props: Props) => {
   }
 
   return (
-    <View style={{ backgroundColor: "#34C5FA", flex: 1 }}>
-      {post ? (
-        <View>
-          <PostView post={post} />
-          <Text variant="titleLarge">Comments: </Text>
-          {post.comments.map((c) => (
-            <View key={c.id}>
-              <PostCommentView postComment={c} />
-            </View>
-          ))}
-        </View>
-      ) : (
-        <></>
-      )}
-      <Button onPress={() => addLikeToPost()}>Like</Button>
-      <Text>Add comment +</Text>
-      <TextInput
-        label="Text"
-        value={text}
-        onChangeText={(text) => setText(text)}
-      />
-      <Button onPress={() => addNewComment()}>Send</Button>
+    <View style={{ flex: 1 }}>
+      <Text variant="titleLarge" style={{ textAlign: "center" }}>
+        Post
+      </Text>
+      <View style={{ backgroundColor: "#34C5FA" }}>
+        {post ? (
+          <View style={{ backgroundColor: "#34C5FA" }}>
+            <PostView post={post} />
+            <Text variant="titleLarge">Comments: </Text>
+            {post.comments.map((c) => (
+              <View key={c.id}>
+                <PostCommentView postComment={c} />
+              </View>
+            ))}
+          </View>
+        ) : (
+          <></>
+        )}
+        <Button onPress={() => addLikeToPost()}>Like</Button>
+        <Text>Add comment +</Text>
+        <TextInput
+          label="Text"
+          value={text}
+          onChangeText={(text) => setText(text)}
+        />
+        <Button onPress={() => addNewComment()}>Send</Button>
+      </View>
     </View>
   );
 };

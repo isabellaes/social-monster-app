@@ -6,22 +6,22 @@ import { RootState } from "./context/store";
 import Home from "./screens/Home";
 import PostDetails from "./screens/PostDetails";
 import Feed from "./screens/Feed";
-import SwitchUser from "./screens/SwitchUser";
 import { Monster } from "./utils/types";
-import UserDetails from "./screens/UserDetails";
-import MonsterAvatar from "./components/Monster";
+import MonsterAvatar from "./components/MonsterAvatar";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import { IconButton } from "react-native-paper";
 import MenuDrawer from "./components/MenuDrawer";
 import Monsters from "./screens/Monsters";
+import MonsterDetails from "./screens/MonsterDetails";
+import SwitchMonster from "./screens/SwitchMonster";
 
 export type RootStackParamList = {
   Home: undefined;
   Feed: undefined;
   Post: { postId: string };
-  SwitchUser: undefined;
-  User: { monsterId: string };
+  SwitchMonster: undefined;
+  MonsterDetails: { monsterId: string };
   Monsters: undefined;
 };
 
@@ -78,8 +78,8 @@ const RootStackNavigator = () => {
         >
           <Stack.Screen name="Feed" component={Feed} />
           <Stack.Screen name="Post" component={PostDetails} />
-          <Stack.Screen name="SwitchUser" component={SwitchUser} />
-          <Stack.Screen name="User" component={UserDetails} />
+          <Stack.Screen name="SwitchMonster" component={SwitchMonster} />
+          <Stack.Screen name="MonsterDetails" component={MonsterDetails} />
           <Stack.Screen name="Monsters" component={Monsters} />
         </Stack.Navigator>
       ) : (

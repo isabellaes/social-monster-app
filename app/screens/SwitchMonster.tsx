@@ -1,6 +1,6 @@
-import { StyleSheet, ScrollView, Pressable } from "react-native";
+import { StyleSheet, ScrollView, Pressable, View } from "react-native";
 import { Text } from "react-native-paper";
-import MonsterAvatar from "../components/Monster";
+import MonsterAvatar from "../components/MonsterAvatar";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../RootNavigator";
 import { useNavigation } from "@react-navigation/native";
@@ -9,13 +9,13 @@ import { RootState, AppDispatch } from "../context/store";
 import { Monster } from "../utils/types";
 import { switchCurrentMonster } from "../context/monsterSlice";
 
-type SwitchUserNavigationProp = NativeStackNavigationProp<
+type SwitchMonsterNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  "SwitchUser"
+  "SwitchMonster"
 >;
 
-const SwitchUser = () => {
-  const navigation = useNavigation<SwitchUserNavigationProp>();
+const SwitchMonster = () => {
+  const navigation = useNavigation<SwitchMonsterNavigationProp>();
   const monsters = useSelector((state: RootState) => state.monster.monsters);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -26,23 +26,26 @@ const SwitchUser = () => {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text variant="titleSmall">Switch Monster</Text>
-      {monsters.map((monster) => (
-        <Pressable onPress={() => onPressNavigate(monster)} key={monster.id}>
-          <MonsterAvatar monster={monster} />
-          <Text>Name: {monster.name}</Text>
-        </Pressable>
-      ))}
-    </ScrollView>
+    <View style={{ flex: 1 }}>
+      <Text variant="titleLarge" style={{ textAlign: "center" }}>
+        Switch Monster
+      </Text>
+      <ScrollView contentContainerStyle={styles.container}>
+        {monsters.map((monster) => (
+          <Pressable onPress={() => onPressNavigate(monster)} key={monster.id}>
+            <MonsterAvatar monster={monster} />
+            <Text>Name: {monster.name}</Text>
+          </Pressable>
+        ))}
+      </ScrollView>
+    </View>
   );
 };
 
-export default SwitchUser;
+export default SwitchMonster;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: "center",
     backgroundColor: "#F3FF0D",
     gap: 5,

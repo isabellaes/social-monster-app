@@ -23,7 +23,7 @@ const MenuDrawer = (props: MenuDrawerProps) => {
         <Drawer.Section title="Monster menu">
           <Drawer.Item
             label="Switch user"
-            onPress={() => navigation.navigate("SwitchUser")}
+            onPress={() => navigation.navigate("SwitchMonster")}
           />
           <Drawer.Item
             label="Feed"

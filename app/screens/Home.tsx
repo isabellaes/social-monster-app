@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { RootStackParamList } from "../RootNavigator";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../context/store";
-import MonsterAvatar from "../components/Monster";
+import MonsterAvatar from "../components/MonsterAvatar";
 import { switchCurrentMonster } from "../context/monsterSlice";
 import { Monster } from "../utils/types";
 import { Platform } from "react-native";

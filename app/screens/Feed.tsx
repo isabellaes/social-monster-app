@@ -39,12 +39,11 @@ const Feed = () => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text variant="titleLarge" style={{ textAlign: "center" }}>
+        Feed
+      </Text>
       <ScrollView contentContainerStyle={{ backgroundColor: "#9ef53b" }}>
-        <View style={{ margin: 5, flexDirection: "row", alignItems: "center" }}>
-          <Text variant="titleLarge">Monster {monster?.name}s feed</Text>
-        </View>
-
         {posts.map((p) => (
           <Pressable
             onPress={() =>
@@ -91,6 +90,9 @@ const Feed = () => {
 export default Feed;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   fab: {
     position: "absolute",
     margin: 16,

@@ -3,7 +3,7 @@ import { Text } from "react-native-paper";
 import { Post } from "../utils/types";
 import { RootState } from "../context/store";
 import { useSelector } from "react-redux";
-import MonsterAvatar from "../components/Monster";
+import MonsterAvatar from "../components/MonsterAvatar";
 
 type PostProps = {
   post: Post;
