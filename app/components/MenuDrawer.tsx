@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../RootNavigator";
+import GenericModal from "./GenericModal";
 
 type FeedNavigationProp = NativeStackNavigationProp<RootStackParamList, "Feed">;
 type MenuDrawerProps = {
@@ -14,28 +15,28 @@ const MenuDrawer = (props: MenuDrawerProps) => {
   const navigation = useNavigation<FeedNavigationProp>();
 
   return (
-    <Portal>
-      <Modal
-        contentContainerStyle={styles.modalContainer}
-        visible={props.visible}
-        onDismiss={props.hideModal}
-      >
-        <Drawer.Section title="Monster menu">
-          <Drawer.Item
-            label="Switch user"
-            onPress={() => navigation.navigate("SwitchMonster")}
-          />
-          <Drawer.Item
-            label="Feed"
-            onPress={() => navigation.navigate("Feed")}
-          />
-          <Drawer.Item
-            label="Monsters"
-            onPress={() => navigation.navigate("Monsters")}
-          />
-        </Drawer.Section>
-      </Modal>
-    </Portal>
+    <GenericModal visible={props.visible} hideModal={props.hideModal}>
+      <Drawer.Section title="Monster menu" style={styles.modalContainer}>
+        <Drawer.Item
+          label="Switch user"
+          onPress={() => {
+            props.hideModal();
+            navigation.navigate("SwitchMonster");
+          }}
+        />
+        <Drawer.Item
+          label="Feed"
+          onPress={() => {
+            props.hideModal();
+            navigation.navigate("Feed");
+          }}
+        />
+        <Drawer.Item
+          label="Monsters"
+          onPress={() => navigation.navigate("Monsters")}
+        />
+      </Drawer.Section>
+    </GenericModal>
   );
 };
 

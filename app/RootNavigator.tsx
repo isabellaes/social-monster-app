@@ -9,12 +9,12 @@ import Feed from "./screens/Feed";
 import { Monster } from "./utils/types";
 import MonsterAvatar from "./components/MonsterAvatar";
 import { View } from "react-native";
-import { Text } from "react-native-paper";
-import { IconButton } from "react-native-paper";
+import { IconButton, Text } from "react-native-paper";
 import MenuDrawer from "./components/MenuDrawer";
 import Monsters from "./screens/Monsters";
 import MonsterDetails from "./screens/MonsterDetails";
 import SwitchMonster from "./screens/SwitchMonster";
+import { useToggle } from "./hooks/useToggle";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -28,9 +28,7 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootStackNavigator = () => {
-  const [visible, setVisible] = useState(false);
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+  const { open, show, hide } = useToggle(false);
   const [currentMonster, setCurrentMonster] = useState<Monster | null>(null);
   const monster = useSelector(
     (state: RootState) => state.monster.currentMonster
@@ -69,8 +67,8 @@ const RootStackNavigator = () => {
                     <MonsterAvatar monster={currentMonster} />
                     <Text variant="titleLarge">{currentMonster.name}</Text>
                   </View>
-                  <IconButton icon={"menu"} onPress={showModal} />
-                  <MenuDrawer visible={visible} hideModal={hideModal} />
+                  <IconButton icon={"menu"} onPress={show} />
+                  <MenuDrawer visible={open} hideModal={hide} />
                 </View>
               );
             },

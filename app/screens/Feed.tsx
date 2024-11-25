@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Pressable, ScrollView, View, StyleSheet } from "react-native";
-import { Button, Text, Portal, Modal, TextInput } from "react-native-paper";
+import { Button, Text, TextInput } from "react-native-paper";
 import { RootStackParamList } from "../RootNavigator";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../context/store";
@@ -9,15 +9,15 @@ import { useNavigation } from "@react-navigation/native";
 import { FAB } from "react-native-paper";
 import { useState } from "react";
 import { addPost } from "../context/postSlice";
+import { useToggle } from "../hooks/useToggle";
+import GenericModal from "../components/GenericModal";
 
 type FeedNavigationProp = NativeStackNavigationProp<RootStackParamList, "Feed">;
 
 const Feed = () => {
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
-  const [visible, setVisible] = useState(false);
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
+  const { open, show, hide } = useToggle(false);
   const navigation = useNavigation<FeedNavigationProp>();
   const dispatch = useDispatch<AppDispatch>();
   const monster = useSelector(
@@ -57,32 +57,30 @@ const Feed = () => {
           </Pressable>
         ))}
       </ScrollView>
-      <Portal>
-        <Modal visible={visible} onDismiss={hideModal}>
-          <View style={{ backgroundColor: "white" }}>
-            <Text>New post</Text>
-            <TextInput
-              label="Title"
-              value={title}
-              onChangeText={(text) => setTitle(text)}
-            />
-            <TextInput
-              label="Text"
-              value={text}
-              onChangeText={(text) => setText(text)}
-            />
-            <Button
-              onPress={() => {
-                hideModal();
-                addNewPost();
-              }}
-            >
-              Create Post
-            </Button>
-          </View>
-        </Modal>
-      </Portal>
-      <FAB icon="plus" style={styles.fab} onPress={() => showModal()} />
+      <GenericModal visible={open} hideModal={hide}>
+        <View style={{ backgroundColor: "white" }}>
+          <Text>New post</Text>
+          <TextInput
+            label="Title"
+            value={title}
+            onChangeText={(text) => setTitle(text)}
+          />
+          <TextInput
+            label="Text"
+            value={text}
+            onChangeText={(text) => setText(text)}
+          />
+          <Button
+            onPress={() => {
+              hide();
+              addNewPost();
+            }}
+          >
+            Create Post
+          </Button>
+        </View>
+      </GenericModal>
+      <FAB icon="plus" style={styles.fab} onPress={show} />
     </View>
   );
 };
