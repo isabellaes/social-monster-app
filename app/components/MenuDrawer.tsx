@@ -33,7 +33,10 @@ const MenuDrawer = (props: MenuDrawerProps) => {
         />
         <Drawer.Item
           label="Monsters"
-          onPress={() => navigation.navigate("Monsters")}
+          onPress={() => {
+            props.hideModal();
+            navigation.navigate("Monsters");
+          }}
         />
       </Drawer.Section>
     </GenericModal>

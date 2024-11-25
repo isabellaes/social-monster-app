@@ -22,9 +22,8 @@ const PostView = (props: PostProps) => {
   return (
     <View style={styles.container}>
       {monster ? <MonsterAvatar monster={monster} /> : <></>}
-
       <Text variant="titleLarge">Monster {monster?.name}</Text>
-      <Text>{props.post.title}</Text>
+      <Text variant="titleMedium">{props.post.title}</Text>
       <Text>{props.post.text}</Text>
       <Text>Likes: {props.post.likes}</Text>
     </View>
