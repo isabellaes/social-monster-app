@@ -20,7 +20,7 @@ const Monsters = () => {
     navigation.navigate("MonsterDetails", { monsterId: monster.id.toString() });
   }
   return (
-    <View>
+    <View style={{ backgroundColor: "#F3FF0D", flex: 1 }}>
       <Text variant="titleLarge" style={{ textAlign: "center" }}>
         Monsters
       </Text>

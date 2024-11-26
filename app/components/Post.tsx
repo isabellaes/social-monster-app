@@ -21,9 +21,11 @@ const PostView = (props: PostProps) => {
 
   return (
     <View style={styles.container}>
-      {monster ? <MonsterAvatar monster={monster} /> : <></>}
-      <Text variant="titleLarge">Monster {monster?.name}</Text>
-      <Text variant="titleMedium">{props.post.title}</Text>
+      <View style={styles.avatar}>
+        {monster ? <MonsterAvatar size="small" monster={monster} /> : <></>}
+        <Text variant="titleMedium">Monster {monster?.name}</Text>
+      </View>
+      <Text variant="titleSmall">{props.post.title}</Text>
       <Text>{props.post.text}</Text>
       <Text>Likes: {props.post.likes}</Text>
     </View>
@@ -34,13 +36,16 @@ export default PostView;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "center",
     margin: 5,
+    padding: 5,
     backgroundColor: "white",
   },
   text: {
     fontWeight: "bold",
     textAlign: "center",
+  },
+  avatar: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

@@ -5,6 +5,7 @@ import { RouteProp } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { RootState } from "../context/store";
 import mapImages from "../utils/imageMapper";
+import PostView from "../components/Post";
 
 type MonsterDetailsNavigationProp = RouteProp<
   RootStackParamList,
@@ -30,7 +31,9 @@ const MonsterDetails = (props: Props) => {
           <Text>Name: {monster.name}</Text>
           <Text>Eyes: {monster.eyes}</Text>
           <Text>Color: {monster.color}</Text>
-          <Text>Posts: {posts.length}</Text>
+          {posts.map((p) => (
+            <PostView post={p} key={p.id} />
+          ))}
         </View>
       ) : (
         <></>
@@ -50,5 +53,7 @@ const styles = StyleSheet.create({
   },
   image: {
     margin: 2,
+    width: 150,
+    height: 150,
   },
 });

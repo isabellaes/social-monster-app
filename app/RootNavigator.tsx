@@ -8,7 +8,7 @@ import PostDetails from "./screens/PostDetails";
 import Feed from "./screens/Feed";
 import { Monster } from "./utils/types";
 import MonsterAvatar from "./components/MonsterAvatar";
-import { View } from "react-native";
+import { View, Pressable } from "react-native";
 import { IconButton, Text } from "react-native-paper";
 import MenuDrawer from "./components/MenuDrawer";
 import Monsters from "./screens/Monsters";
@@ -57,16 +57,22 @@ const RootStackNavigator = () => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <View
+                  <Pressable
                     style={{
                       margin: 5,
                       flexDirection: "row",
                       alignItems: "center",
+                      paddingTop: 15,
                     }}
+                    onPress={() =>
+                      navigation.navigate("MonsterDetails", {
+                        monsterId: currentMonster.id.toString(),
+                      })
+                    }
                   >
-                    <MonsterAvatar monster={currentMonster} />
+                    <MonsterAvatar size="small" monster={currentMonster} />
                     <Text variant="titleLarge">{currentMonster.name}</Text>
-                  </View>
+                  </Pressable>
                   <IconButton icon={"menu"} onPress={show} />
                   <MenuDrawer visible={open} hideModal={hide} />
                 </View>

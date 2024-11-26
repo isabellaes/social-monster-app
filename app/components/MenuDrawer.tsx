@@ -52,16 +52,5 @@ const styles = StyleSheet.create({
     marginLeft: 150,
     padding: 10,
     height: "auto",
-  },
-  modalContent: {
-    flexDirection: "row",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    alignItems: "center",
-  },
-  monster: {
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 3,
-  },
+  }
 });

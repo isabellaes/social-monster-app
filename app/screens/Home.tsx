@@ -62,7 +62,7 @@ const Home = () => {
                 key={monster.id}
                 style={styles.monster}
               >
-                <MonsterAvatar monster={monster} />
+                <MonsterAvatar size="medium" monster={monster} />
                 <Text>{monster.name}</Text>
               </Pressable>
             ))}
