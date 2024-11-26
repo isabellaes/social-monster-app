@@ -9,6 +9,7 @@ import PostCommentView from "../components/Comment";
 import { TextInput } from "react-native-paper";
 import { useState } from "react";
 import { addComment, addLike } from "../context/postSlice";
+import { generateRandomNumber } from "../utils/functions";
 
 type PostDetailsNavigationProp = RouteProp<RootStackParamList, "Post">;
 type Props = {
@@ -32,7 +33,7 @@ const PostDetails = (props: Props) => {
     dispatch(
       addComment({
         comment: {
-          id: 0,
+          id: generateRandomNumber(),
           text: text,
           authorId: currentMonster?.id || 0,
         },
