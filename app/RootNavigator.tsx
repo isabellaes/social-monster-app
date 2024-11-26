@@ -8,13 +8,12 @@ import PostDetails from "./screens/PostDetails";
 import Feed from "./screens/Feed";
 import { Monster } from "./utils/types";
 import MonsterAvatar from "./components/MonsterAvatar";
-import { View, Pressable } from "react-native";
-import { IconButton, Text } from "react-native-paper";
-import MenuDrawer from "./components/MenuDrawer";
+import { Pressable } from "react-native";
+import { Text } from "react-native-paper";
 import Monsters from "./screens/Monsters";
 import MonsterDetails from "./screens/MonsterDetails";
 import SwitchMonster from "./screens/SwitchMonster";
-import { useToggle } from "./hooks/useToggle";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -26,9 +25,31 @@ export type RootStackParamList = {
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const Drawer = createDrawerNavigator<RootStackParamList>();
+
+const FeedStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Feed"
+      options={{ headerShown: false }}
+      component={Feed}
+    />
+    <Stack.Screen name="Post" component={PostDetails} />
+  </Stack.Navigator>
+);
+
+const MonsterStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Monsters"
+      options={{ headerShown: false }}
+      component={Monsters}
+    />
+    <Stack.Screen name="MonsterDetails" component={MonsterDetails} />
+  </Stack.Navigator>
+);
 
 const RootStackNavigator = () => {
-  const { open, show, hide } = useToggle(false);
   const [currentMonster, setCurrentMonster] = useState<Monster | null>(null);
   const monster = useSelector(
     (state: RootState) => state.monster.currentMonster
@@ -41,51 +62,36 @@ const RootStackNavigator = () => {
   return (
     <NavigationContainer>
       {currentMonster ? (
-        <Stack.Navigator
+        <Drawer.Navigator
           initialRouteName="Feed"
           screenOptions={({ route, navigation }) => ({
             headerStyle: { backgroundColor: "grey" },
             headerTintColor: "white",
-            header: () => {
+            headerRight: () => {
               return (
-                <View
+                <Pressable
                   style={{
-                    padding: 5,
                     margin: 5,
                     flexDirection: "row",
                     alignItems: "center",
-                    justifyContent: "space-between",
+                    paddingTop: 15,
                   }}
                 >
-                  <Pressable
-                    style={{
-                      margin: 5,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      paddingTop: 15,
-                    }}
-                    onPress={() =>
-                      navigation.navigate("MonsterDetails", {
-                        monsterId: currentMonster.id.toString(),
-                      })
-                    }
-                  >
-                    <MonsterAvatar size="small" monster={currentMonster} />
-                    <Text variant="titleLarge">{currentMonster.name}</Text>
-                  </Pressable>
-                  <IconButton icon={"menu"} onPress={show} />
-                  <MenuDrawer visible={open} hideModal={hide} />
-                </View>
+                  <Text variant="titleLarge">{currentMonster.name}</Text>
+                  <MonsterAvatar size="small" monster={currentMonster} />
+                </Pressable>
               );
             },
           })}
         >
-          <Stack.Screen name="Feed" component={Feed} />
-          <Stack.Screen name="Post" component={PostDetails} />
-          <Stack.Screen name="SwitchMonster" component={SwitchMonster} />
-          <Stack.Screen name="MonsterDetails" component={MonsterDetails} />
-          <Stack.Screen name="Monsters" component={Monsters} />
-        </Stack.Navigator>
+          <Drawer.Screen name="Feed" component={FeedStack} />
+          <Drawer.Screen name="SwitchMonster" component={SwitchMonster} />
+          <Drawer.Screen
+            name="Monsters"
+            component={MonsterStack}
+            options={{ title: "Monsters" }}
+          />
+        </Drawer.Navigator>
       ) : (
         <Stack.Navigator
           initialRouteName="Home"

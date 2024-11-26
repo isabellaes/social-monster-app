@@ -41,12 +41,6 @@ const Feed = () => {
 
   return (
     <View style={styles.container}>
-      <Text
-        variant="titleLarge"
-        style={{ textAlign: "center", padding: 5, margin: 2 }}
-      >
-        Feed
-      </Text>
       <ScrollView contentContainerStyle={{ backgroundColor: "#9ef53b" }}>
         {posts.map((p) => (
           <Pressable
