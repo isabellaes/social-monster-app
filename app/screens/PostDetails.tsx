@@ -1,5 +1,5 @@
 import { View, StyleSheet, ScrollView } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Button, Text, TextInput, IconButton } from "react-native-paper";
 import { RootStackParamList } from "../RootNavigator";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../context/store";
@@ -7,7 +7,7 @@ import PostView from "../components/Post";
 import { RouteProp } from "@react-navigation/native";
 import PostCommentView from "../components/Comment";
 import { useState } from "react";
-import { addComment, addLike } from "../context/postSlice";
+import { addComment } from "../context/postSlice";
 import { generateRandomNumber } from "../utils/functions";
 
 type PostDetailsNavigationProp = RouteProp<RootStackParamList, "Post">;
@@ -25,9 +25,6 @@ const PostDetails = (props: Props) => {
   const post = posts.find((p) => p.id === Number(postId));
   const [text, setText] = useState("");
 
-  function addLikeToPost() {
-    dispatch(addLike(post?.id || 0));
-  }
   function addNewComment() {
     dispatch(
       addComment({
@@ -46,9 +43,6 @@ const PostDetails = (props: Props) => {
       {post ? (
         <ScrollView>
           <PostView post={post} />
-          <Button mode="contained" onPress={() => addLikeToPost()}>
-            Like
-          </Button>
           <Text variant="titleMedium">Comments: </Text>
           {post.comments.map((c) => (
             <View key={c.id}>

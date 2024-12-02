@@ -1,9 +1,10 @@
-import { View, StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
+import { View, StyleSheet, Pressable } from "react-native";
+import { Text, Icon } from "react-native-paper";
 import { Post } from "../utils/types";
-import { RootState } from "../context/store";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../context/store";
+import { useDispatch, useSelector } from "react-redux";
 import MonsterAvatar from "../components/MonsterAvatar";
+import { addLike } from "../context/postSlice";
 
 type PostProps = {
   post: Post;
@@ -11,10 +12,14 @@ type PostProps = {
 
 const PostView = (props: PostProps) => {
   const monsters = useSelector((state: RootState) => state.monster.monsters);
-
+  const dispatch = useDispatch<AppDispatch>();
   function getMonster(id: number) {
     const monster = monsters.find((m) => m.id === id);
     return monster;
+  }
+
+  function addLikeToPost() {
+    dispatch(addLike(props.post.id || 0));
   }
 
   const monster = getMonster(props.post.authorId);
@@ -27,7 +32,14 @@ const PostView = (props: PostProps) => {
       </View>
       <Text variant="titleSmall">{props.post.title}</Text>
       <Text>{props.post.text}</Text>
-      <Text>Likes: {props.post.likes}</Text>
+      <View style={styles.icons}>
+        <Pressable onPress={() => addLikeToPost()}>
+          <Icon source="heart" size={20} />
+        </Pressable>
+        <Text>{props.post.likes}</Text>
+        <Icon source="message-outline" size={20} />
+        <Text>{props.post.comments.length}</Text>
+      </View>
     </View>
   );
 };
@@ -47,5 +59,10 @@ const styles = StyleSheet.create({
   avatar: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  icons: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
   },
 });

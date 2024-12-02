@@ -51,7 +51,6 @@ const Feed = () => {
             style={{ backgroundColor: "white", margin: 5, padding: 5 }}
           >
             <PostView post={p} />
-            <Text style={{ padding: 7 }}>Comments: {p.comments.length}</Text>
           </Pressable>
         ))}
       </ScrollView>
