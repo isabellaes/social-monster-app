@@ -38,7 +38,7 @@
     {
       "id": 6,
       "name": "Emma",
-      "color": "white",
+      "color": "lightgrey",
       "eyes": 5,
       "img": "../assets/avatars/monster6.png"
     },
