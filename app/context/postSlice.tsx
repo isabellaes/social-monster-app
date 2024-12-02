@@ -1,13 +1,14 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Post, PostComment } from "../utils/types";
-import { getPosts } from "../utils/api";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Post, PostDTO } from "../utils/types";
+import { getPosts, addComment, addLike, addPost } from "../utils/api";
 
 type newComment = {
   postId: string;
-  comment: PostComment;
+  text: string;
+  authorId: string;
 };
 interface PostState {
-  posts: Post[];
+  posts: PostDTO[];
 }
 
 const initialState: PostState = {
@@ -15,7 +16,7 @@ const initialState: PostState = {
 };
 
 export const fetchPosts = createAsyncThunk<
-  Post[],
+  PostDTO[],
   void,
   { rejectValue: string }
 >("posts/fetchPosts", async (_, { rejectWithValue }) => {
@@ -27,35 +28,74 @@ export const fetchPosts = createAsyncThunk<
   }
 });
 
+export const createNewPost = createAsyncThunk<
+  PostDTO,
+  Post,
+  { rejectValue: string }
+>("posts/addPost", async (data, { rejectWithValue }) => {
+  try {
+    const response = await addPost(data);
+    return response;
+  } catch (error) {
+    return rejectWithValue("Something went wrong");
+  }
+});
+
+export const updateCommentsOnPost = createAsyncThunk<
+  PostDTO,
+  newComment,
+  { rejectValue: string }
+>("posts/updateComments", async (data, { rejectWithValue }) => {
+  try {
+    const response = await addComment(data);
+    return response;
+  } catch (error) {
+    return rejectWithValue("Something went wrong");
+  }
+});
+
+export const updateLikesOnPost = createAsyncThunk<
+  PostDTO,
+  string,
+  { rejectValue: string }
+>("posts/updateLikes", async (data, { rejectWithValue }) => {
+  try {
+    const response = await addLike(data);
+    return response;
+  } catch (error) {
+    return rejectWithValue("Something went wrong");
+  }
+});
+
 const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {
-    addPost: (state, action: PayloadAction<Post>) => {
-      state.posts.push(action.payload);
-    },
-    addComment: (state, action: PayloadAction<newComment>) => {
-      const post = state.posts.find((p) => p._id === action.payload.postId);
-      if (post) {
-        const index = state.posts.indexOf(post);
-        state.posts[index].comments.push(action.payload.comment);
-      }
-    },
-    addLike: (state, action: PayloadAction<string>) => {
-      const post = state.posts.find((p) => p._id === action.payload);
-      if (post) {
-        const index = state.posts.indexOf(post);
-        state.posts[index].likes += 1;
-      }
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.posts = action.payload;
     });
+
+    builder.addCase(updateCommentsOnPost.fulfilled, (state, action) => {
+      state.posts = state.posts.map((p) => {
+        if (p._id === action.payload._id) return action.payload;
+        else return p;
+      });
+    });
+
+    builder.addCase(updateLikesOnPost.fulfilled, (state, action) => {
+      state.posts = state.posts.map((p) => {
+        if (p._id === action.payload._id) return action.payload;
+        else return p;
+      });
+    });
+
+    builder.addCase(createNewPost.fulfilled, (state, action) => {
+      state.posts = [...state.posts, action.payload];
+    });
   },
 });
 
-export const { addPost, addComment, addLike } = postSlice.actions;
+export const {} = postSlice.actions;
 
 export default postSlice.reducer;

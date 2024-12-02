@@ -24,39 +24,45 @@ export function publicPostRouter() {
       const request = await postModel.create(post);
       request.save();
       res.status(200).send(request);
-    } catch (error) {}
+    } catch (error) {
+      console.log("error: " + error);
+      res.status(404).send({ message: "someting went wrong" });
+      res.end();
+    }
   });
 
-  router.patch("/newComment:id", async (req, res) => {
+  router.patch("/newComment/:id", async (req, res) => {
     try {
-      const request = await postModel.findByIdAndUpdate(
-        { _id: req.params.id },
-        {
-          $push: {
-            comments: { ...req.body },
-          },
-        },
+      const data = { text: req.body.text, authorId: req.body.authorId };
 
+      const updatedPost = await postModel.findByIdAndUpdate(
+        req.params.id,
+        { $push: { comments: data } },
         { new: true }
       );
-      request.save();
 
-      res.status(200).send(request);
-    } catch (error) {}
+      res.status(200).send(updatedPost);
+    } catch (error) {
+      console.log("error: " + error);
+      res.status(404).send({ message: "someting went wrong" });
+      res.end();
+    }
   });
 
-  router.patch("/newLike:id", async (req, res) => {
+  router.patch("/newLike/:id", async (req, res) => {
     try {
-      const request = await postModel.findByIdAndUpdate(
-        { _id: req.params.id },
-        {
-          $inc: { likes: 1 },
-        },
+      const updatedPost = await postModel.findByIdAndUpdate(
+        req.params.id,
+        { $inc: { likes: 1 } },
         { new: true }
       );
-      request.save();
-      res.status(200).send(request);
-    } catch (error) {}
+
+      res.status(200).send(updatedPost);
+    } catch (error) {
+      console.log("error: " + error);
+      res.status(404).send({ message: "someting went wrong" });
+      res.end();
+    }
   });
 
   return router;

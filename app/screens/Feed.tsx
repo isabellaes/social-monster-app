@@ -7,46 +7,51 @@ import { AppDispatch, RootState } from "../context/store";
 import PostView from "../components/Post";
 import { useNavigation } from "@react-navigation/native";
 import { FAB } from "react-native-paper";
-import { useState } from "react";
-import { addPost } from "../context/postSlice";
+import { useEffect, useState } from "react";
+import { createNewPost, fetchPosts } from "../context/postSlice";
 import { useToggle } from "../hooks/useToggle";
 import GenericModal from "../components/GenericModal";
 import { generateRandomNumber } from "../utils/functions";
+import { Post, PostDTO } from "../utils/types";
 
 type FeedNavigationProp = NativeStackNavigationProp<RootStackParamList, "Feed">;
 
 const Feed = () => {
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
+  const [posts, setPosts] = useState<PostDTO[]>([]);
   const { open, show, hide } = useToggle(false);
   const navigation = useNavigation<FeedNavigationProp>();
   const dispatch = useDispatch<AppDispatch>();
   const monster = useSelector(
     (state: RootState) => state.monster.currentMonster
   );
-  const posts = useSelector((state: RootState) => state.post.posts);
+  const data = useSelector((state: RootState) => state.post.posts);
 
   function addNewPost() {
     dispatch(
-      addPost({
-        _id: generateRandomNumber(),
+      createNewPost({
         title: title,
         text: text,
         authorId: monster?._id || "",
-        comments: [],
-        likes: 0,
       })
     );
   }
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setPosts(data);
+  }, [data]);
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ backgroundColor: "lightgrey" }}>
         {posts.map((p) => (
           <Pressable
-            onPress={() =>
-              navigation.navigate("Post", { postId: p._id.toString() })
-            }
+            onPress={() => navigation.navigate("Post", { postId: p._id })}
             key={p._id}
             style={{ backgroundColor: "white", margin: 5, padding: 5 }}
           >

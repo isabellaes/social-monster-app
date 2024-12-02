@@ -1,34 +1,35 @@
 import { View, StyleSheet, Pressable } from "react-native";
 import { Text, Icon } from "react-native-paper";
-import { Post } from "../utils/types";
+import { Post, PostDTO } from "../utils/types";
 import { AppDispatch, RootState } from "../context/store";
 import { useDispatch, useSelector } from "react-redux";
 import MonsterAvatar from "../components/MonsterAvatar";
-import { addLike } from "../context/postSlice";
+import { updateLikesOnPost } from "../context/postSlice";
 
 type PostProps = {
-  post: Post;
+  post: PostDTO;
 };
 
 const PostView = (props: PostProps) => {
-  const monsters = useSelector((state: RootState) => state.monster.monsters);
   const dispatch = useDispatch<AppDispatch>();
-  function getMonster(id: string) {
-    const monster = monsters.find((m) => m._id === id);
-    return monster;
-  }
 
   function addLikeToPost() {
-    dispatch(addLike(props.post._id));
+    dispatch(updateLikesOnPost(props.post._id));
   }
-
-  const monster = getMonster(props.post.authorId);
 
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>
-        {monster ? <MonsterAvatar size="small" monster={monster} /> : <></>}
-        <Text variant="titleMedium">Monster {monster?.name}</Text>
+        {props.post.authorId ? (
+          <>
+            <MonsterAvatar size="small" monster={props.post.authorId} />
+            <Text variant="titleMedium">
+              Monster {props.post.authorId.name}
+            </Text>
+          </>
+        ) : (
+          <></>
+        )}
       </View>
       <Text variant="titleSmall">{props.post.title}</Text>
       <Text>{props.post.text}</Text>
@@ -38,7 +39,7 @@ const PostView = (props: PostProps) => {
         </Pressable>
         <Text>{props.post.likes}</Text>
         <Icon source="message-outline" size={20} />
-        <Text>{props.post.comments.length}</Text>
+        <Text>{props.post.comments?.length || 0}</Text>
       </View>
     </View>
   );

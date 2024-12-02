@@ -7,7 +7,7 @@ import PostView from "../components/Post";
 import { RouteProp } from "@react-navigation/native";
 import PostCommentView from "../components/Comment";
 import { useState } from "react";
-import { addComment } from "../context/postSlice";
+import { updateCommentsOnPost } from "../context/postSlice";
 import { generateRandomNumber } from "../utils/functions";
 
 type PostDetailsNavigationProp = RouteProp<RootStackParamList, "Post">;
@@ -27,12 +27,10 @@ const PostDetails = (props: Props) => {
 
   function addNewComment() {
     dispatch(
-      addComment({
-        comment: {
-          _id: generateRandomNumber(),
+      updateCommentsOnPost({
+    
           text: text,
           authorId: currentMonster?._id || "0",
-        },
         postId: post?._id || "0",
       })
     );

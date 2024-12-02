@@ -1,29 +1,26 @@
 import { View, StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
-import { PostComment } from "../utils/types";
-import { RootState } from "../context/store";
-import { useSelector } from "react-redux";
+import { PostComment, PostCommentDTO } from "../utils/types";
 import MonsterAvatar from "../components/MonsterAvatar";
 
 type PostCommentProps = {
-  postComment: PostComment;
+  postComment: PostCommentDTO;
 };
 
 const PostCommentView = (props: PostCommentProps) => {
-  const monsters = useSelector((state: RootState) => state.monster.monsters);
-
-  function getMonster(id: string) {
-    const monster = monsters.find((m) => m._id === id);
-    return monster;
-  }
-
-  const monster = getMonster(props.postComment.authorId);
-
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>
-        {monster ? <MonsterAvatar size="small" monster={monster} /> : <></>}
-        <Text variant="titleMedium">Monster {monster?.name}</Text>
+        {props.postComment.authorId ? (
+          <>
+            <MonsterAvatar size="small" monster={props.postComment.authorId} />
+            <Text variant="titleMedium">
+              Monster {props.postComment.authorId.name}
+            </Text>
+          </>
+        ) : (
+          <></>
+        )}
       </View>
       <Text>{props.postComment.text}</Text>
     </View>
