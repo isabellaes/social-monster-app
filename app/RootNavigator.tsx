@@ -65,8 +65,8 @@ const RootStackNavigator = () => {
         <Drawer.Navigator
           initialRouteName="Feed"
           screenOptions={({ route, navigation }) => ({
-            headerStyle: { backgroundColor: "grey" },
-            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#83F01D" },
+            headerTintColor: "black",
             headerRight: () => {
               return (
                 <Pressable
@@ -96,8 +96,8 @@ const RootStackNavigator = () => {
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={{
-            headerStyle: { backgroundColor: "#2e003e" },
-            headerTintColor: "white",
+            headerStyle: { backgroundColor: "#83F01D" },
+            headerTintColor: "black",
           }}
         >
           <Stack.Screen name="Home" component={Home} />

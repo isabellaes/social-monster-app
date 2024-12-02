@@ -41,7 +41,7 @@ const Feed = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{ backgroundColor: "#9ef53b" }}>
+      <ScrollView contentContainerStyle={{ backgroundColor: "lightgrey" }}>
         {posts.map((p) => (
           <Pressable
             onPress={() =>

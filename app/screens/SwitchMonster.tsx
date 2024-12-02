@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, Pressable, View } from "react-native";
+import { StyleSheet, Pressable, View } from "react-native";
 import { Text } from "react-native-paper";
 import MonsterAvatar from "../components/MonsterAvatar";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -26,18 +26,19 @@ const SwitchMonster = () => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <Text variant="titleLarge" style={{ textAlign: "center" }}>
-        Switch Monster
-      </Text>
-      <ScrollView contentContainerStyle={styles.container}>
+    <View style={{ flex: 1, backgroundColor: "lightgrey" }}>
+      <View style={styles.content}>
         {monsters.map((monster) => (
-          <Pressable onPress={() => onPressNavigate(monster)} key={monster.id}>
+          <Pressable
+            style={{ padding: 5 }}
+            onPress={() => onPressNavigate(monster)}
+            key={monster.id}
+          >
             <MonsterAvatar monster={monster} />
             <Text>Name: {monster.name}</Text>
           </Pressable>
         ))}
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -47,7 +48,16 @@ export default SwitchMonster;
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    backgroundColor: "#F3FF0D",
+    backgroundColor: "white",
     gap: 5,
+  },
+  content: {
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    alignItems: "center",
+    backgroundColor: "white",
+    gap: 5,
+    margin: 2,
   },
 });

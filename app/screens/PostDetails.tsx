@@ -1,12 +1,11 @@
-import { View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { View, StyleSheet, ScrollView } from "react-native";
+import { Button, Text, TextInput } from "react-native-paper";
 import { RootStackParamList } from "../RootNavigator";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../context/store";
 import PostView from "../components/Post";
 import { RouteProp } from "@react-navigation/native";
 import PostCommentView from "../components/Comment";
-import { TextInput } from "react-native-paper";
 import { useState } from "react";
 import { addComment, addLike } from "../context/postSlice";
 import { generateRandomNumber } from "../utils/functions";
@@ -43,35 +42,56 @@ const PostDetails = (props: Props) => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <Text variant="titleLarge" style={{ textAlign: "center" }}>
-        Post
-      </Text>
-      <View style={{ backgroundColor: "#34C5FA" }}>
-        {post ? (
-          <View style={{ backgroundColor: "#34C5FA" }}>
-            <PostView post={post} />
-            <Text variant="titleLarge">Comments: </Text>
-            {post.comments.map((c) => (
-              <View key={c.id}>
-                <PostCommentView postComment={c} />
-              </View>
-            ))}
-          </View>
-        ) : (
-          <></>
-        )}
-        <Button onPress={() => addLikeToPost()}>Like</Button>
-        <Text>Add comment +</Text>
+    <View style={styles.container}>
+      {post ? (
+        <ScrollView>
+          <PostView post={post} />
+          <Button mode="contained" onPress={() => addLikeToPost()}>
+            Like
+          </Button>
+          <Text variant="titleMedium">Comments: </Text>
+          {post.comments.map((c) => (
+            <View key={c.id}>
+              <PostCommentView postComment={c} />
+            </View>
+          ))}
+        </ScrollView>
+      ) : (
+        <></>
+      )}
+      <View style={styles.commentView}>
+        <Text variant="titleMedium">Add comment</Text>
         <TextInput
           label="Text"
           value={text}
+          mode="outlined"
           onChangeText={(text) => setText(text)}
         />
-        <Button onPress={() => addNewComment()}>Send</Button>
+        <Button mode="contained" onPress={() => addNewComment()}>
+          Send
+        </Button>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    margin: 2,
+    padding: 2,
+  },
+  postView: {
+    gap: 5,
+    margin: 2,
+  },
+  commentView: {
+    margin: 2,
+    padding: 2,
+    gap: 5,
+    marginBottom: 15,
+  },
+});
 
 export default PostDetails;
