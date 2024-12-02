@@ -21,8 +21,10 @@ const PostCommentView = (props: PostCommentProps) => {
 
   return (
     <View style={styles.container}>
-      {monster ? <MonsterAvatar monster={monster} /> : <></>}
-      <Text variant="titleLarge">Monster {monster?.name}</Text>
+      <View style={styles.avatar}>
+        {monster ? <MonsterAvatar size="small" monster={monster} /> : <></>}
+        <Text variant="titleMedium">Monster {monster?.name}</Text>
+      </View>
       <Text>{props.postComment.text}</Text>
     </View>
   );
@@ -32,13 +34,16 @@ export default PostCommentView;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "center",
     margin: 5,
+    padding: 5,
     backgroundColor: "white",
   },
   text: {
     fontWeight: "bold",
     textAlign: "center",
+  },
+  avatar: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
