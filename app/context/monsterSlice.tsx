@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import data from "../utils/demoData.json";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Monster } from "../utils/types";
+import { getMonsters } from "../utils/api";
 
 interface MonsterState {
   monsters: Monster[];
@@ -8,9 +8,22 @@ interface MonsterState {
 }
 
 const initialState: MonsterState = {
-  monsters: data.monsters,
+  monsters: [],
   currentMonster: null,
 };
+
+export const fetchMonsters = createAsyncThunk<
+  Monster[],
+  void,
+  { rejectValue: string }
+>("monsters/fetchMonsters", async (_, { rejectWithValue }) => {
+  try {
+    const response = await getMonsters();
+    return response;
+  } catch (error) {
+    return rejectWithValue("Something went wrong");
+  }
+});
 
 const monsterSlice = createSlice({
   name: "monster",
@@ -22,6 +35,11 @@ const monsterSlice = createSlice({
     switchCurrentMonster: (state, action) => {
       state.currentMonster = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchMonsters.fulfilled, (state, action) => {
+      state.monsters = action.payload;
+    });
   },
 });
 

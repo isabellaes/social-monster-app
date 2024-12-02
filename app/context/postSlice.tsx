@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import data from "../utils/demoData.json";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Post, PostComment } from "../utils/types";
+import { getPosts } from "../utils/api";
 
 type newComment = {
-  postId: number;
+  postId: string;
   comment: PostComment;
 };
 interface PostState {
@@ -11,8 +11,21 @@ interface PostState {
 }
 
 const initialState: PostState = {
-  posts: data.posts,
+  posts: [],
 };
+
+export const fetchPosts = createAsyncThunk<
+  Post[],
+  void,
+  { rejectValue: string }
+>("posts/fetchPosts", async (_, { rejectWithValue }) => {
+  try {
+    const response = await getPosts();
+    return response;
+  } catch (error) {
+    return rejectWithValue("Something went wrong");
+  }
+});
 
 const postSlice = createSlice({
   name: "post",
@@ -22,19 +35,24 @@ const postSlice = createSlice({
       state.posts.push(action.payload);
     },
     addComment: (state, action: PayloadAction<newComment>) => {
-      const post = state.posts.find((p) => p.id === action.payload.postId);
+      const post = state.posts.find((p) => p._id === action.payload.postId);
       if (post) {
         const index = state.posts.indexOf(post);
         state.posts[index].comments.push(action.payload.comment);
       }
     },
-    addLike: (state, action: PayloadAction<number>) => {
-      const post = state.posts.find((p) => p.id === action.payload);
+    addLike: (state, action: PayloadAction<string>) => {
+      const post = state.posts.find((p) => p._id === action.payload);
       if (post) {
         const index = state.posts.indexOf(post);
         state.posts[index].likes += 1;
       }
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchPosts.fulfilled, (state, action) => {
+      state.posts = action.payload;
+    });
   },
 });
 

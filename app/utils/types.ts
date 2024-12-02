@@ -1,20 +1,20 @@
 export type Monster = {
-  id: number;
+  _id: string;
   name: string;
   eyes: number;
   color: string;
   img: string;
 };
 export type PostComment = {
-  id: number;
+  _id: string;
   text: string;
-  authorId: number;
+  authorId: string;
 };
 export type Post = {
-  id: number;
+  _id: string;
   title: string;
   text: string;
-  authorId: number;
+  authorId: string;
   comments: PostComment[];
   likes: number;
 };

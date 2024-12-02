@@ -22,18 +22,18 @@ const PostDetails = (props: Props) => {
   const currentMonster = useSelector(
     (state: RootState) => state.monster.currentMonster
   );
-  const post = posts.find((p) => p.id === Number(postId));
+  const post = posts.find((p) => p._id === postId);
   const [text, setText] = useState("");
 
   function addNewComment() {
     dispatch(
       addComment({
         comment: {
-          id: generateRandomNumber(),
+          _id: generateRandomNumber(),
           text: text,
-          authorId: currentMonster?.id || 0,
+          authorId: currentMonster?._id || "0",
         },
-        postId: post?.id || 0,
+        postId: post?._id || "0",
       })
     );
   }
@@ -45,7 +45,7 @@ const PostDetails = (props: Props) => {
           <PostView post={post} />
           <Text variant="titleMedium">Comments: </Text>
           {post.comments.map((c) => (
-            <View key={c.id}>
+            <View key={c._id}>
               <PostCommentView postComment={c} />
             </View>
           ))}

@@ -12,8 +12,8 @@ type PostCommentProps = {
 const PostCommentView = (props: PostCommentProps) => {
   const monsters = useSelector((state: RootState) => state.monster.monsters);
 
-  function getMonster(id: number) {
-    const monster = monsters.find((m) => m.id === id);
+  function getMonster(id: string) {
+    const monster = monsters.find((m) => m._id === id);
     return monster;
   }
 

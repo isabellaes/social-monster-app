@@ -32,7 +32,7 @@ const SwitchMonster = () => {
           <Pressable
             style={{ padding: 15 }}
             onPress={() => onPressNavigate(monster)}
-            key={monster.id}
+            key={monster._id}
           >
             <MonsterAvatar monster={monster} />
             <Text>Name: {monster.name}</Text>

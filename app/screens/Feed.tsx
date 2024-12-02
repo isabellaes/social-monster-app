@@ -29,10 +29,10 @@ const Feed = () => {
   function addNewPost() {
     dispatch(
       addPost({
-        id: generateRandomNumber(),
+        _id: generateRandomNumber(),
         title: title,
         text: text,
-        authorId: monster?.id || 0,
+        authorId: monster?._id || "",
         comments: [],
         likes: 0,
       })
@@ -45,9 +45,9 @@ const Feed = () => {
         {posts.map((p) => (
           <Pressable
             onPress={() =>
-              navigation.navigate("Post", { postId: p.id.toString() })
+              navigation.navigate("Post", { postId: p._id.toString() })
             }
-            key={p.id}
+            key={p._id}
             style={{ backgroundColor: "white", margin: 5, padding: 5 }}
           >
             <PostView post={p} />

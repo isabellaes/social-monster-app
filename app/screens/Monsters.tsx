@@ -17,7 +17,7 @@ const Monsters = () => {
   const monsters = useSelector((state: RootState) => state.monster.monsters);
   const navigation = useNavigation<MonstersNavigationProp>();
   function onPressNavigate(monster: Monster) {
-    navigation.navigate("MonsterDetails", { monsterId: monster.id.toString() });
+    navigation.navigate("MonsterDetails", { monsterId: monster._id });
   }
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
@@ -25,7 +25,7 @@ const Monsters = () => {
         {monsters.map((monster) => (
           <Pressable
             onPress={() => onPressNavigate(monster)}
-            key={monster.id}
+            key={monster._id}
             style={{ padding: 15 }}
           >
             <MonsterAvatar monster={monster} />

@@ -13,13 +13,13 @@ type PostProps = {
 const PostView = (props: PostProps) => {
   const monsters = useSelector((state: RootState) => state.monster.monsters);
   const dispatch = useDispatch<AppDispatch>();
-  function getMonster(id: number) {
-    const monster = monsters.find((m) => m.id === id);
+  function getMonster(id: string) {
+    const monster = monsters.find((m) => m._id === id);
     return monster;
   }
 
   function addLikeToPost() {
-    dispatch(addLike(props.post.id || 0));
+    dispatch(addLike(props.post._id));
   }
 
   const monster = getMonster(props.post.authorId);

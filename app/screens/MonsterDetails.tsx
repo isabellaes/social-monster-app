@@ -19,20 +19,20 @@ const MonsterDetails = (props: Props) => {
   const { monsterId } = props.route.params;
   const monsters = useSelector((state: RootState) => state.monster.monsters);
   const posts = useSelector((state: RootState) =>
-    state.post.posts.filter((p) => p.authorId === Number(monsterId))
+    state.post.posts.filter((p) => p.authorId === monsterId)
   );
-  const monster = monsters.find((m) => m.id === Number(monsterId));
+  const monster = monsters.find((m) => m._id === monsterId);
 
   return (
     <View style={[styles.container, { backgroundColor: monster?.color }]}>
       {monster ? (
-        <View key={monster.id}>
+        <View key={monster._id}>
           <Image style={styles.image} source={mapImages[monster.img]} />
           <Text>Name: {monster.name}</Text>
           <Text>Eyes: {monster.eyes}</Text>
           <Text>Color: {monster.color}</Text>
           {posts.map((p) => (
-            <PostView post={p} key={p.id} />
+            <PostView post={p} key={p._id} />
           ))}
         </View>
       ) : (

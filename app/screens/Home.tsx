@@ -2,22 +2,32 @@ import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../context/store";
 import MonsterAvatar from "../components/MonsterAvatar";
-import { switchCurrentMonster } from "../context/monsterSlice";
+import { fetchMonsters, switchCurrentMonster } from "../context/monsterSlice";
 import { Monster } from "../utils/types";
 import { Platform } from "react-native";
 import { Button } from "react-native-paper";
 import { useToggle } from "../hooks/useToggle";
 import GenericModal from "../components/GenericModal";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const [monsters, setMonsters] = useState<Monster[]>([]);
   const { open, show, hide } = useToggle(false);
-  const monsters = useSelector((state: RootState) => state.monster.monsters);
+  const data = useSelector((state: RootState) => state.monster.monsters);
 
   const dispatch = useDispatch<AppDispatch>();
 
   function chooseMonster(monster: Monster) {
     dispatch(switchCurrentMonster(monster));
   }
+
+  useEffect(() => {
+    dispatch(fetchMonsters());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setMonsters(data);
+  }, [data]);
 
   return (
     <View style={styles.container}>
@@ -59,7 +69,7 @@ const Home = () => {
             {monsters.map((monster) => (
               <Pressable
                 onPress={() => chooseMonster(monster)}
-                key={monster.id}
+                key={monster._id}
                 style={styles.monster}
               >
                 <MonsterAvatar size="medium" monster={monster} />
