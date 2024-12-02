@@ -27,5 +27,37 @@ export function publicPostRouter() {
     } catch (error) {}
   });
 
+  router.patch("/newComment:id", async (req, res) => {
+    try {
+      const request = await postModel.findByIdAndUpdate(
+        { _id: req.params.id },
+        {
+          $push: {
+            comments: { ...req.body },
+          },
+        },
+
+        { new: true }
+      );
+      request.save();
+
+      res.status(200).send(request);
+    } catch (error) {}
+  });
+
+  router.patch("/newLike:id", async (req, res) => {
+    try {
+      const request = await postModel.findByIdAndUpdate(
+        { _id: req.params.id },
+        {
+          $inc: { likes: 1 },
+        },
+        { new: true }
+      );
+      request.save();
+      res.status(200).send(request);
+    } catch (error) {}
+  });
+
   return router;
 }
