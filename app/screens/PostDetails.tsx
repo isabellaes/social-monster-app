@@ -61,7 +61,12 @@ const PostDetails = (props: Props) => {
           mode="outlined"
           onChangeText={(text) => setText(text)}
         />
-        <Button mode="contained" onPress={() => addNewComment()}>
+        <Button
+          mode="contained"
+          onPress={() => addNewComment()}
+          style={{ backgroundColor: "#83F01D" }}
+          textColor="black"
+        >
           Send
         </Button>
       </View>

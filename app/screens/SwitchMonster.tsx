@@ -26,11 +26,11 @@ const SwitchMonster = () => {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "lightgrey" }}>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       <View style={styles.content}>
         {monsters.map((monster) => (
           <Pressable
-            style={{ padding: 5 }}
+            style={{ padding: 15 }}
             onPress={() => onPressNavigate(monster)}
             key={monster.id}
           >

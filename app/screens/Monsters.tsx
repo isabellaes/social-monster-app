@@ -20,13 +20,14 @@ const Monsters = () => {
     navigation.navigate("MonsterDetails", { monsterId: monster.id.toString() });
   }
   return (
-    <View style={{ backgroundColor: "lightgrey", flex: 1 }}>
-      <Text variant="titleLarge" style={{ textAlign: "center" }}>
-        Monsters
-      </Text>
+    <View style={{ backgroundColor: "white", flex: 1 }}>
       <View style={styles.container}>
         {monsters.map((monster) => (
-          <Pressable onPress={() => onPressNavigate(monster)} key={monster.id}>
+          <Pressable
+            onPress={() => onPressNavigate(monster)}
+            key={monster.id}
+            style={{ padding: 15 }}
+          >
             <MonsterAvatar monster={monster} />
             <Text>Name: {monster.name}</Text>
           </Pressable>
@@ -39,10 +40,12 @@ const Monsters = () => {
 export default Monsters;
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    backgroundColor: "#F3FF0D",
     flexDirection: "row",
+    justifyContent: "center",
     flexWrap: "wrap",
-    gap: 15,
+    alignItems: "center",
+    backgroundColor: "white",
+    gap: 5,
+    margin: 2,
   },
 });

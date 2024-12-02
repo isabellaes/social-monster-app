@@ -62,25 +62,30 @@ const Feed = () => {
           </Text>
           <TextInput
             label="Title"
+            mode="outlined"
             value={title}
             onChangeText={(text) => setTitle(text)}
           />
           <TextInput
             label="Text"
+            mode="outlined"
             value={text}
             onChangeText={(text) => setText(text)}
           />
           <Button
+            mode="contained"
             onPress={() => {
               hide();
               addNewPost();
             }}
+            style={{ marginBottom: 30, backgroundColor: "#83F01D" }}
+            textColor="black"
           >
             Create Post
           </Button>
         </View>
       </GenericModal>
-      <FAB icon="plus" style={styles.fab} onPress={show} />
+      <FAB icon="plus" style={styles.fab} color="black" onPress={show} />
     </View>
   );
 };
@@ -96,6 +101,7 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
+    backgroundColor: "#83F01D",
   },
   createpostModal: {
     padding: 10,
